@@ -9,47 +9,25 @@
 
 const PROJECTS = [
   {
-    title:     'Chat en Tiempo Real',
-    shortDesc: 'Mensajería instantánea con WebSockets bidireccional',
-    fullDesc:  'Aplicación de chat en tiempo real desarrollada con WebSockets que permite comunicación bidireccional entre múltiples usuarios de forma instantánea. Incluye salas de chat, indicador de escritura en vivo y persistencia de mensajes en el servidor.',
-    tech:      ['JavaScript', 'WebSockets', 'PHP', 'HTML', 'CSS'],
+    title:     'Zonix Play',
+    shortDesc: 'Cliente IPTV multiplataforma de alto rendimiento con Flutter',
+    fullDesc:  'Aplicación IPTV moderna para Android y Windows construida con Flutter. Permite reproducir contenido con las propias credenciales del usuario, sincronización en la nube mediante Supabase, almacenamiento local con Hive y una UI premium con diseño glassmorphism. Motor de vídeo basado en MediaKit con backend libmpv para máxima calidad de reproducción.',
+    tech:      ['Flutter', 'Dart', 'Riverpod', 'Supabase', 'MediaKit', 'Hive'],
+    category:  'App Móvil / Desktop',
+    gradient:  'linear-gradient(135deg, #0d1117, #1a1f2e)',
+    image:     'https://raw.githubusercontent.com/VerdonTO05/iptv_pro/master/assets/images/logo.png',
+    github:    'https://github.com/VerdonTO05/iptv_pro',
+    demo:      null,
+  },
+  {
+    title:     'MoveOs',
+    shortDesc: 'Plataforma web para gestión de actividades y eventos comunitarios',
+    fullDesc:  'Plataforma web completa que centraliza la gestión, publicación y participación en actividades, talleres y eventos educativos. Backend en PHP con arquitectura MVC, autenticación con bcrypt y control de acceso por roles, base de datos MySQL con triggers automáticos y auditoría de operaciones. Flujos de aprobación para administradores, sistema de solicitudes de usuarios e interfaz responsive construida con SCSS.',
+    tech:      ['PHP', 'MySQL', 'JavaScript', 'HTML5', 'SCSS', 'Figma', 'Jira', 'Git'],
     category:  'Full Stack',
-    gradient:  'linear-gradient(135deg, rgba(129,140,248,0.25), rgba(99,102,241,0.15))',
-    icon:      '💬',
-    github:    '#',
-    demo:      null,
-  },
-  {
-    title:     'Gestor de Tareas',
-    shortDesc: 'Sistema CRUD completo con PHP y base de datos',
-    fullDesc:  'Aplicación web para la gestión de proyectos y tareas con operaciones CRUD completas. Backend en PHP con autenticación de usuarios, gestión de sesiones y base de datos relacional. Interfaz dinámica construida con JavaScript vanilla.',
-    tech:      ['PHP', 'JavaScript', 'HTML', 'CSS', 'MySQL'],
-    category:  'Full Stack',
-    gradient:  'linear-gradient(135deg, rgba(52,211,153,0.25), rgba(16,185,129,0.15))',
-    icon:      '✅',
-    github:    '#',
-    demo:      null,
-  },
-  {
-    title:     'API REST con Java',
-    shortDesc: 'Servicio backend RESTful para gestión de recursos',
-    fullDesc:  'API RESTful desarrollada en Java que expone endpoints para CRUD de recursos. Implementa correctamente los códigos de estado HTTP, manejo estructurado de errores y serialización JSON. Documentada con colección de requests de prueba.',
-    tech:      ['Java', 'REST', 'JSON', 'HTTP'],
-    category:  'Backend',
-    gradient:  'linear-gradient(135deg, rgba(251,146,60,0.25), rgba(239,68,68,0.15))',
-    icon:      '⚡',
-    github:    '#',
-    demo:      null,
-  },
-  {
-    title:     'Scripts de Automatización',
-    shortDesc: 'Herramientas Python para procesamiento de datos',
-    fullDesc:  'Conjunto de scripts Python para automatizar tareas repetitivas: lectura y transformación de ficheros, procesamiento de datos en distintos formatos (CSV, JSON) y generación automática de informes. Diseño modular y reutilizable.',
-    tech:      ['Python', 'CSV', 'JSON', 'Automatización'],
-    category:  'Scripting',
-    gradient:  'linear-gradient(135deg, rgba(251,191,36,0.25), rgba(245,158,11,0.15))',
-    icon:      '🐍',
-    github:    '#',
+    gradient:  'linear-gradient(135deg, #0d1a14, #0f1f1a)',
+    image:     'https://raw.githubusercontent.com/VerdonTO05/Proyecto-Final-MoveOs-Grupo-5/main/root-proyect/public/assets/img/ico/icono.svg',
+    github:    'https://github.com/VerdonTO05/Proyecto-Final-MoveOs-Grupo-5',
     demo:      null,
   },
 ];
@@ -189,8 +167,12 @@ function buildProjectCard(project, index) {
   card.className          = 'project-card scroll-reveal';
   card.style.transitionDelay = `${index * 0.08}s`;
 
+  const bannerInner = project.image
+    ? `<img src="${project.image}" alt="${project.title}" loading="lazy">`
+    : project.icon || '';
+
   card.innerHTML = `
-    <div class="project-banner" style="background: ${project.gradient}">${project.icon}</div>
+    <div class="project-banner" style="background: ${project.gradient}">${bannerInner}</div>
     <div class="project-body">
       <div class="project-head">
         <span class="project-title">${project.title}</span>
@@ -217,8 +199,11 @@ function initProjects() {
    -------------------------------------------------------------------------- */
 
 function openModal(project) {
-  document.getElementById('modal-banner').style.background = project.gradient;
-  document.getElementById('modal-banner').textContent      = project.icon;
+  const modalBanner = document.getElementById('modal-banner');
+  modalBanner.style.background = project.gradient;
+  modalBanner.innerHTML = project.image
+    ? `<img src="${project.image}" alt="${project.title}">`
+    : project.icon || '';
   document.getElementById('modal-title').textContent       = project.title;
   document.getElementById('modal-category').textContent    = project.category;
   document.getElementById('modal-desc').textContent        = project.fullDesc;
